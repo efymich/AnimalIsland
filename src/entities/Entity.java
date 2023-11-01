@@ -1,6 +1,7 @@
 package entities;
 
 
+import enums.Entities;
 import lombok.Getter;
 import lombok.Setter;
 

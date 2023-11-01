@@ -2,7 +2,7 @@ package factories;
 
 import entities.Entity;
 import entities.Predator;
-import entities.Entities;
+import enums.Entities;
 
 public class PredatorFactory implements EntityFactory{
     @Override

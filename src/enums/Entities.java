@@ -1,6 +1,8 @@
-package entities;
+package enums;
 
 import lombok.Getter;
+
+import java.util.Random;
 
 @Getter
 public enum Entities {
@@ -26,6 +28,7 @@ public enum Entities {
     private final int countOnCell;
     private final int speed;
     private final double saturationLimit;
+    private static final Random random = new Random();
 
     Entities(EntityKind entityKind,double weight, int countOnCell, int speed, double saturationLimit) {
         this.entityKind = entityKind;
@@ -33,5 +36,12 @@ public enum Entities {
         this.countOnCell = countOnCell;
         this.speed = speed;
         this.saturationLimit = saturationLimit;
+    }
+
+    public int getRandomCountOnCell(){
+        return random.nextInt(this.countOnCell);
+    }
+    public int getRandomSpeed(){
+        return random.nextInt(this.speed);
     }
 }

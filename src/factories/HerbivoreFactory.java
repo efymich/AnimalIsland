@@ -1,7 +1,7 @@
 package factories;
 
 import entities.Entity;
-import entities.Entities;
+import enums.Entities;
 import entities.Herbivore;
 
 public class HerbivoreFactory implements EntityFactory{
