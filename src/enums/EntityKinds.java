@@ -1,6 +1,6 @@
 package enums;
 
-public enum EntityKind {
+public enum EntityKinds {
     PREDATOR,
     HERBIVORE,
     PLANT

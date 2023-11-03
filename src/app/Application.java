@@ -3,7 +3,7 @@ package app;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import entities.Entity;
 import enums.Entities;
-import enums.EntityKind;
+import enums.EntityKinds;
 import entities.Island;
 import factories.EntityFactory;
 import factories.HerbivoreFactory;
@@ -70,9 +70,9 @@ public class Application {
 
                 if (limit <= limitCountOfEntitiesOnCell) {
                     for (int i = 0; i < limit; i++) {
-                        if (kind.getEntityKind() == EntityKind.PREDATOR) {
+                        if (kind.getEntityKinds() == EntityKinds.PREDATOR) {
                             list.add(predatorFactory.createEntity(kind));
-                        } else if (kind.getEntityKind() == EntityKind.HERBIVORE) {
+                        } else if (kind.getEntityKinds() == EntityKinds.HERBIVORE) {
                             list.add(herbivoreFactory.createEntity(kind));
                         } else {
                             list.add(plantFactory.createEntity(kind));
