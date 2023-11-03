@@ -1,14 +1,15 @@
 package app;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import entities.Entity;
+import models.Entity;
 import enums.Entities;
 import enums.EntityKinds;
-import entities.Island;
+import models.Island;
 import factories.EntityFactory;
 import factories.HerbivoreFactory;
 import factories.PlantFactory;
 import factories.PredatorFactory;
+import tasks.LifeCycle;
 import util.RandomEnumGenerator;
 
 import java.io.File;
@@ -26,9 +27,10 @@ public class Application {
             Island island = configureApp();
             seedPlants(island);
             populateMap(island);
+            LifeCycle lifeCycle = new LifeCycle(island);
 
-            System.out.println(island.getIslandMap().size());
-            System.out.println(island.getIslandMap().keySet().size());
+            lifeCycle.run();
+
             System.out.println(island.getIslandMap());
         } catch (IOException e) {
             throw new RuntimeException(e);

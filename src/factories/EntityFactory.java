@@ -1,6 +1,6 @@
 package factories;
 
-import entities.Entity;
+import models.Entity;
 import enums.Entities;
 
 public interface EntityFactory {

@@ -1,8 +1,8 @@
 package factories;
 
-import entities.Entity;
+import models.Entity;
 import enums.Entities;
-import entities.Herbivore;
+import models.Herbivore;
 
 public class HerbivoreFactory implements EntityFactory{
     @Override

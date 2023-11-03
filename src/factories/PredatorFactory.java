@@ -1,7 +1,7 @@
 package factories;
 
-import entities.Entity;
-import entities.Predator;
+import models.Entity;
+import models.Predator;
 import enums.Entities;
 
 public class PredatorFactory implements EntityFactory{

@@ -1,4 +1,4 @@
-package entities;
+package models;
 
 import app.Configuration;
 import lombok.Getter;
@@ -37,11 +37,14 @@ public final class Island {
     }
 
     public static Island getInstance(Configuration config) {
-        synchronized (Island.class) {
-            if (instance == null) {
-                instance = new Island(config);
+        if (instance == null){
+            synchronized (Island.class) {
+                if (instance == null) {
+                    instance = new Island(config);
+                }
+                return instance;
             }
-            return instance;
         }
+        return instance;
     }
 }

@@ -1,7 +1,7 @@
 package util;
 
-import entities.Entity;
-import entities.Island;
+import models.Entity;
+import models.Island;
 
 import java.util.ArrayList;
 import java.util.Map;
