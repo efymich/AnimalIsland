@@ -1,0 +1,83 @@
+{
+  "xSize" : 2,
+  "ySize" : 3,
+  "lifeCyclePeriod" : "00:07:00",
+  "limitCountOfEntitiesOnCell" : 10,
+  "tableProbsToBeEaten": {
+    "WOLF": {
+      "HORSE": 0.10,
+      "DEER" : 0.15,
+      "RABBIT" : 0.60,
+      "MOUSE" : 0.80,
+      "GOAT" : 0.60,
+      "SHEEP" : 0.70,
+      "BOAR" : 0.15,
+      "BUFFALO" : 0.10,
+      "DUCK" : 0.40
+    },
+    "SNAKE": {
+      "FOX": 0.15,
+      "RABBIT": 0.20,
+      "MOUSE" : 0.40,
+      "DUCK" : 0.10
+    },
+    "FOX": {
+      "RABBIT" : 0.70,
+      "MOUSE" : 0.90,
+      "DUCK" : 0.60,
+      "CATERPILLAR" : 0.40
+    },
+    "BEAR": {
+      "SNAKE": 0.80,
+      "HORSE": 0.40,
+      "DEER" : 0.80,
+      "RABBIT" : 0.80,
+      "MOUSE" : 0.90,
+      "GOAT" : 0.70,
+      "SHEEP" : 0.70,
+      "BOAR" : 0.50,
+      "BUFFALO" : 0.20,
+      "DUCK" : 0.10
+    },
+    "HAWK": {
+      "FOX": 0.10,
+      "RABBIT" : 0.90,
+      "MOUSE" : 0.90,
+      "DUCK" : 0.80
+    },
+    "HORSE": {
+      "PLANT" : 1
+    },
+    "DEER": {
+      "PLANT" : 1
+    },
+    "RABBIT": {
+      "PLANT" : 1
+    },
+    "MOUSE": {
+      "CATERPILLAR" : 0.90,
+      "PLANT" : 0
+    },
+    "GOAT": {
+      "PLANT" : 1
+    },
+    "SHEEP": {
+      "PLANT" : 1
+    },
+    "BOAR": {
+      "MOUSE" : 0.50,
+      "CATERPILLAR" : 0.90,
+      "PLANT" : 1
+    },
+    "BUFFALO": {
+      "PLANT" : 1
+    },
+    "DUCK": {
+      "CATERPILLAR" : 0.90,
+      "PLANT" : 1
+    },
+    "CATERPILLAR": {
+      "PLANT" : 1
+    }
+  }
+}

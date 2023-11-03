@@ -16,5 +16,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="jackson-annotations-2.14.2" level="project" />
   </component>
 </module>

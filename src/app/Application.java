@@ -1,5 +1,6 @@
 package app;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import entities.Entity;
 import enums.Entities;
 import enums.EntityKind;
@@ -10,7 +11,8 @@ import factories.PlantFactory;
 import factories.PredatorFactory;
 import util.RandomEnumGenerator;
 
-import java.time.LocalTime;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Stream;
@@ -20,15 +22,24 @@ import static util.Utility.getIslandCellStream;
 public class Application {
 
     public void start() {
-        Island island = configureApp();
-        seedPlants(island);
-        populateMap(island);
+        try {
+            Island island = configureApp();
+            seedPlants(island);
+            populateMap(island);
 
-        System.out.println(island.getIslandMap());
+            System.out.println(island.getIslandMap().size());
+            System.out.println(island.getIslandMap().keySet().size());
+            System.out.println(island.getIslandMap());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private Island configureApp() {
-        Configuration configuration = new Configuration(2, 3, LocalTime.of(0, 1), 10);
+    private Island configureApp() throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.findAndRegisterModules(); // for working with Java 8 LocalData classes
+        Configuration configuration = mapper.readValue(new File("resources/config/configuration.json"), Configuration.class);
+        System.out.println(configuration);
         return Island.getInstance(configuration);
     }
 
@@ -49,6 +60,7 @@ public class Application {
         RandomEnumGenerator<Entities> randomEnumGenerator = new RandomEnumGenerator<>(Entities.class);
         PredatorFactory predatorFactory = new PredatorFactory();
         HerbivoreFactory herbivoreFactory = new HerbivoreFactory();
+        PlantFactory plantFactory = new PlantFactory();
 
         islandCellStream.forEach(list -> {
             int limitCountOfEntitiesOnCell = island.getConfig().getLimitCountOfEntitiesOnCell();
@@ -60,8 +72,10 @@ public class Application {
                     for (int i = 0; i < limit; i++) {
                         if (kind.getEntityKind() == EntityKind.PREDATOR) {
                             list.add(predatorFactory.createEntity(kind));
-                        } else {
+                        } else if (kind.getEntityKind() == EntityKind.HERBIVORE) {
                             list.add(herbivoreFactory.createEntity(kind));
+                        } else {
+                            list.add(plantFactory.createEntity(kind));
                         }
                     }
                     limitCountOfEntitiesOnCell -= limit;
