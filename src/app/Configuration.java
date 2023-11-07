@@ -25,6 +25,4 @@ public class Configuration implements Serializable {
     private LocalTime lifeCyclePeriod;
     @JsonProperty
     private int limitCountOfEntitiesOnCell;
-    @JsonProperty
-    private Map<Entities, Map<Entities,Double>> tableProbsToBeEaten;
 }

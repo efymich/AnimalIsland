@@ -3,14 +3,12 @@ package app;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Entity;
 import enums.Entities;
-import enums.EntityKinds;
 import models.Island;
 import factories.EntityFactory;
-import factories.HerbivoreFactory;
 import factories.PlantFactory;
-import factories.PredatorFactory;
 import tasks.LifeCycle;
 import util.RandomEnumGenerator;
+import util.Utility;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,10 +27,20 @@ public class Application {
             populateMap(island);
             LifeCycle lifeCycle = new LifeCycle(island);
 
-            lifeCycle.run();
-
+            Thread thread = new Thread(lifeCycle);
             System.out.println(island.getIslandMap());
+            thread.start();
+            Thread.sleep(1);
+            thread.interrupt();
+            Thread.sleep(60000);
+            System.out.println(island.getIslandMap());
+            Thread.sleep(60000);
+            System.out.println(island.getIslandMap());
+            thread.interrupt();
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
@@ -60,9 +68,6 @@ public class Application {
     private void populateMap(Island island) {
         Stream<ArrayList<Entity>> islandCellStream = getIslandCellStream(island);
         RandomEnumGenerator<Entities> randomEnumGenerator = new RandomEnumGenerator<>(Entities.class);
-        PredatorFactory predatorFactory = new PredatorFactory();
-        HerbivoreFactory herbivoreFactory = new HerbivoreFactory();
-        PlantFactory plantFactory = new PlantFactory();
 
         islandCellStream.forEach(list -> {
             int limitCountOfEntitiesOnCell = island.getConfig().getLimitCountOfEntitiesOnCell();
@@ -72,21 +77,11 @@ public class Application {
 
                 if (limit <= limitCountOfEntitiesOnCell) {
                     for (int i = 0; i < limit; i++) {
-                        if (kind.getEntityKinds() == EntityKinds.PREDATOR) {
-                            list.add(predatorFactory.createEntity(kind));
-                        } else if (kind.getEntityKinds() == EntityKinds.HERBIVORE) {
-                            list.add(herbivoreFactory.createEntity(kind));
-                        } else {
-                            list.add(plantFactory.createEntity(kind));
-                        }
+                        Utility.createEntityAndAdd(list,kind);
                     }
                     limitCountOfEntitiesOnCell -= limit;
                 }
             }
         });
     }
-
-    private void generateStatistic() {
-    }
-
 }

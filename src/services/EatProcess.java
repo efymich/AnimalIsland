@@ -24,8 +24,8 @@ public class EatProcess {
         RandomGenerator generator = new RandomGenerator();
         Map<Entities, Map<Entities, Double>> probsMap = eatingProbs.getEatingProbsMap();
 
-        if (!probsMap.containsKey(whoEats)) return false;
-        Double probability = eatingProbs.getEatingProbsMap().get(whoEats).getOrDefault(victim, 0.0);
+        if (!probsMap.containsKey(whoEats.getKind())) return false;
+        Double probability = eatingProbs.getEatingProbsMap().get(whoEats.getKind()).getOrDefault(victim.getKind(), 0.0);
 
         return generator.beEaten(probability);
     }
