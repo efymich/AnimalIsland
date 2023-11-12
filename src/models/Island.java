@@ -6,9 +6,9 @@ import lombok.Getter;
 import util.RandomEnumGenerator;
 import util.Utility;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Stream;
 
 import static util.Utility.getIslandCellStream;
@@ -16,11 +16,11 @@ import static util.Utility.getIslandCellStream;
 @Getter
 public final class Island {
 
-    private static volatile Island instance;
+    private static Island instance;
 
     private final Configuration config;
 
-    private volatile Map<Integer, Map<Integer, ArrayList<Entity>>> islandMap = new HashMap<>();
+    private Map<Integer, Map<Integer, CopyOnWriteArrayList<Entity>>> islandMap = new HashMap<>();
 
     private Island(Configuration config) {
         this.config = config;
@@ -48,15 +48,15 @@ public final class Island {
         populateMap(this);
     }
 
-    private Map<Integer, Map<Integer, ArrayList<Entity>>> generateMap(Configuration config) {
+    private Map<Integer, Map<Integer, CopyOnWriteArrayList<Entity>>> generateMap(Configuration config) {
         int x = config.getXSize();
         int y = config.getYSize();
 
-        Map<Integer, Map<Integer, ArrayList<Entity>>> outerMap = new HashMap<>();
+        Map<Integer, Map<Integer, CopyOnWriteArrayList<Entity>>> outerMap = new HashMap<>();
         for (int i = 0; i < x; i++) {
-            Map<Integer, ArrayList<Entity>> innerMap = new HashMap<>();
+            Map<Integer, CopyOnWriteArrayList<Entity>> innerMap = new HashMap<>();
             for (int j = 0; j < y; j++) {
-                innerMap.put(j, new ArrayList<>());
+                innerMap.put(j, new CopyOnWriteArrayList<>());
                 outerMap.put(i, innerMap);
             }
         }
@@ -64,7 +64,7 @@ public final class Island {
     }
 
     private void populateMap(Island island) {
-        Stream<ArrayList<Entity>> islandCellStream = getIslandCellStream(island);
+        Stream<CopyOnWriteArrayList<Entity>> islandCellStream = getIslandCellStream(island);
         RandomEnumGenerator<Entities> randomEnumGenerator = new RandomEnumGenerator<>(Entities.class);
 
         islandCellStream.forEach(list -> {

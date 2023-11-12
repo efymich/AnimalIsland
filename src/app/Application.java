@@ -1,28 +1,17 @@
 package app;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import models.Entity;
-import enums.Entities;
 import models.Island;
-import factories.EntityFactory;
-import factories.PlantFactory;
 import tasks.LifeCycle;
 import tasks.PlantSeeder;
 import tasks.StatisticManager;
-import util.RandomEnumGenerator;
-import util.Utility;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
-
-import static util.Utility.getIslandCellStream;
 
 public class Application {
 

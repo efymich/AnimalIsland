@@ -1,16 +1,10 @@
 package tasks;
 
-import enums.Entities;
 import models.Entity;
 import models.Island;
 import util.Utility;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class StatisticManager implements Runnable {
     private final Island island;
