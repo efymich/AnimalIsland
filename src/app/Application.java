@@ -22,17 +22,17 @@ public class Application {
             ScheduledExecutorService statisticService = Executors.newScheduledThreadPool(1);
             ExecutorService executorService = Executors.newFixedThreadPool(3);
 
-            seedService.scheduleAtFixedRate(new PlantSeeder(island),0,5, TimeUnit.SECONDS);
-            statisticService.scheduleAtFixedRate(new StatisticManager(island),0,7,TimeUnit.SECONDS);
+//            seedService.scheduleAtFixedRate(new PlantSeeder(island),0,5, TimeUnit.SECONDS);
+//            statisticService.scheduleAtFixedRate(new StatisticManager(island),0,7,TimeUnit.SECONDS);
 
             LifeCycle lifeCycletask = new LifeCycle(island);
             Thread thread1 = new Thread(lifeCycletask);
-            Thread thread2 = new Thread(lifeCycletask);
-            Thread thread3 = new Thread(lifeCycletask);
+//            Thread thread2 = new Thread(lifeCycletask);
+//            Thread thread3 = new Thread(lifeCycletask);
 
             thread1.start();
-            thread2.start();
-            thread3.start();
+//            thread2.start();
+//            thread3.start();
 
             TimeUnit.MINUTES.sleep(7);
  /*           for (int i = 0; i < 3; i++) {

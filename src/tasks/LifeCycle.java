@@ -10,6 +10,7 @@ import util.Utility;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class LifeCycle implements Runnable {
@@ -17,8 +18,8 @@ public class LifeCycle implements Runnable {
     private final EatProcess eatProcess = EatProcess.getInstance();
     private final MoveProcess moveProcess = MoveProcess.getInstance();
     private final Semaphore eatingSemaphore = new Semaphore(3);
-    private final Semaphore reproducingSemaphore = new Semaphore(0);
-    private final Semaphore movingSemaphore = new Semaphore(0);
+    private final Semaphore reproducingSemaphore = new Semaphore(1);
+    private final Semaphore movingSemaphore = new Semaphore(1);
 
     public LifeCycle(Island island) {
         this.island = island;
@@ -27,9 +28,14 @@ public class LifeCycle implements Runnable {
     @Override
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
-            eating(island);
-            reproducing(island);
-            moving(island);
+//            eating(island);
+//            reproducing(island);
+            try {
+                moving(island);
+                TimeUnit.SECONDS.sleep(3);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -37,6 +43,8 @@ public class LifeCycle implements Runnable {
         try {
 
             eatingSemaphore.acquire();
+
+            System.out.println(Thread.currentThread().getName() + " eating");
 
             Utility.getIslandCellStream(island).forEach(list -> {
 //                List<Entity> initialList = new CopyOnWriteArrayList<>(list);
@@ -75,11 +83,14 @@ public class LifeCycle implements Runnable {
         try {
             reproducingSemaphore.acquire();
 
+//            System.out.println(Thread.currentThread().getName() + " REPRODUCING");
+
             Utility.getIslandCellStream(island).forEach(list -> {
                 Map<Entities, Long> mapGroupByCount = list.stream().collect(Collectors.groupingBy(Entity::getKind, Collectors.counting()));
-                mapGroupByCount.keySet().stream().peek(key -> {
-                    int countOfNewBorn = (int) Math.floor(mapGroupByCount.get(key));
-                    if (key != Entities.PLANT) {
+                mapGroupByCount.keySet().forEach(key -> {
+                    long countEntitiesOnCell = mapGroupByCount.get(key);
+                    int countOfNewBorn = (int) Math.floorDiv(countEntitiesOnCell,2);
+                    if (key != Entities.PLANT && key.getCountOnCell() > (countEntitiesOnCell + countOfNewBorn)) {
                         for (int i = 0; i < countOfNewBorn; i++) {
                             Utility.createEntityAndAdd(list, key);
                         }
@@ -90,6 +101,7 @@ public class LifeCycle implements Runnable {
             Thread.currentThread().interrupt();
         } finally {
             reproducingSemaphore.release();
+            movingSemaphore.release();
         }
     }
 
@@ -103,9 +115,13 @@ public class LifeCycle implements Runnable {
                 Map<Integer, CopyOnWriteArrayList<Entity>> innerMap = islandMap.get(xKey);
                 for (Integer yKey : innerMap.keySet()) {
                     CopyOnWriteArrayList<Entity> cell = innerMap.get(yKey);
-                    cell.forEach(entity -> moveProcess.move(islandMap,xKey,yKey,entity));
+                    System.out.println(cell);
+                    cell.forEach(entity -> {
+                        moveProcess.move(island,xKey,yKey,entity);
+                    });
                 }
             }
+            System.out.println("----------------------------------------------");
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         } finally {
