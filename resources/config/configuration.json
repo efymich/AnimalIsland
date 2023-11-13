@@ -1,6 +1,6 @@
 {
-  "xSize" : 2,
-  "ySize" : 3,
-  "lifeCyclePeriod" : "00:07:00",
-  "limitCountOfEntitiesOnCell" : 10
+  "xSize" : 20,
+  "ySize" : 30,
+  "lifeCyclePeriod" : "00:03:00",
+  "limitCountOfEntitiesOnCell" : 50
 }
