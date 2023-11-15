@@ -18,39 +18,26 @@ public class Application {
     public void start(){
         try {
             Island island = configureApp();
-            ScheduledExecutorService seedService = Executors.newScheduledThreadPool(1);
-            ScheduledExecutorService statisticService = Executors.newScheduledThreadPool(1);
-            ExecutorService executorService = Executors.newFixedThreadPool(3);
+            ExecutorService executorService = Executors.newCachedThreadPool();
 
-            seedService.scheduleAtFixedRate(new PlantSeeder(island),0,30, TimeUnit.SECONDS);
-            statisticService.scheduleAtFixedRate(new StatisticManager(island),0,10,TimeUnit.SECONDS);
+            ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(r -> {
+                Thread thread = new Thread(r);
+                thread.setDaemon(true);
+                return thread;
+            });
 
             LifeCycle lifeCycletask = new LifeCycle(island);
-            Thread thread1 = new Thread(lifeCycletask);
-            Thread thread2 = new Thread(lifeCycletask);
-            Thread thread3 = new Thread(lifeCycletask);
-            Thread thread4 = new Thread(lifeCycletask);
-            Thread thread5 = new Thread(lifeCycletask);
-            Thread thread6 = new Thread(lifeCycletask);
 
-            thread1.start();
-            thread2.start();
-            thread3.start();
-            thread4.start();
-            thread5.start();
-            thread6.start();
-
-            TimeUnit.MINUTES.sleep(7);
- /*           for (int i = 0; i < 3; i++) {
-                executorService.execute(new LifeCycle(island));
+            for (int i = 0; i < 3; i++) {
+                executorService.submit(lifeCycletask);
             }
+            scheduledExecutorService.scheduleAtFixedRate(new PlantSeeder(island),10,30, TimeUnit.SECONDS);
+            scheduledExecutorService.scheduleAtFixedRate(new StatisticManager(island),0,10, TimeUnit.SECONDS);
 
             int executingSeconds = island.getConfig().getLifeCyclePeriod().getSecond();
             executorService.awaitTermination(executingSeconds,TimeUnit.SECONDS);
 
-            executorService.shutdownNow();*/
-            seedService.shutdownNow();
-            statisticService.shutdownNow();
+            executorService.shutdownNow();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
