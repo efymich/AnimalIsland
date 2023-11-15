@@ -42,20 +42,17 @@ public class LifeCycle implements Runnable {
         Utility.getIslandCellStream(island)
 //                    .peek(System.out::println)
                 .forEach(list -> {
-                    AtomicInteger outerAtom = new AtomicInteger(0);
                     AtomicInteger innerAtom = new AtomicInteger(1);
                     for (int i = 0; i < list.size(); i++) {
-                        if (outerAtom.compareAndSet(i, i++)) {
-                            double saturationLimit = list.get(i).getSaturationLimit();
-                            double saturation = 0.0;
+                        double saturationLimit = list.get(i).getSaturationLimit();
+                        double saturation = 0.0;
 
-                            for (int j = i + 1; j < list.size(); j++) {
-                                if (innerAtom.compareAndSet(j, j++)) {
-                                    if (saturation > saturationLimit) break;
-                                    if (eatProcess.isEatable(list.get(i), list.get(j))) {
-                                        saturation += list.get(j).getWeight();
-                                        list.remove(j);
-                                    }
+                        for (int j = i + 1; j < list.size(); j++) {
+                            if (innerAtom.compareAndSet(j, j++)) {
+                                if (saturation > saturationLimit) break;
+                                if (eatProcess.isEatable(list.get(i), list.get(j))) {
+                                    saturation += list.get(j).getWeight();
+                                    list.remove(j);
                                 }
                             }
                         }
