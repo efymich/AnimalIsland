@@ -24,7 +24,7 @@ public class MoveProcess {
             int[] initCoordinates = new int[]{xKey, yKey};
             int[] newCoordinates = getDirectionAndCoordinates(entity, initCoordinates);
 
-            if (isEnoughSpace(newCoordinates,island)) {
+            if (isEnoughSpace(newCoordinates, island)) {
                 CopyOnWriteArrayList<Entity> initList = islandMap.get(initCoordinates[0]).get(initCoordinates[1]);
                 CopyOnWriteArrayList<Entity> destinationList = islandMap.get(newCoordinates[0]).get(newCoordinates[1]);
                 if (!isEnoughAnimals(destinationList, entity)) {
@@ -80,7 +80,7 @@ public class MoveProcess {
     private boolean isEnoughSpace(int[] coordinatesArr, Island island) {
         int maxY = island.getConfig().getYSize();
         int maxX = island.getConfig().getXSize();
-        int minY = 0,minX= 0;
+        int minY = 0, minX = 0;
 
         return (coordinatesArr[0] < maxX && coordinatesArr[0] >= minX) && (coordinatesArr[1] < maxY && coordinatesArr[1] >= minY);
     }
