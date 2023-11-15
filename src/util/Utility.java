@@ -21,6 +21,7 @@ public class Utility {
                 .flatMap(map -> map.values().stream())
                 .flatMap(CopyOnWriteArrayList::stream);
     }
+
     public static Stream<CopyOnWriteArrayList<Entity>> getIslandCellStream(Island island) {
         Map<Integer, Map<Integer, CopyOnWriteArrayList<Entity>>> islandMap = island.getIslandMap();
         return islandMap.values()
@@ -28,7 +29,7 @@ public class Utility {
                 .flatMap(map -> map.values().stream());
     }
 
-    public static void createEntityAndAdd(CopyOnWriteArrayList<Entity> list, Entities kind){
+    public static void createEntityAndAdd(CopyOnWriteArrayList<Entity> list, Entities kind) {
         PredatorFactory predatorFactory = new PredatorFactory();
         HerbivoreFactory herbivoreFactory = new HerbivoreFactory();
         PlantFactory plantFactory = new PlantFactory();

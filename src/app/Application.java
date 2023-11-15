@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Application {
 
-    public void start(){
+    public void start() {
         try {
             Island island = configureApp();
             ExecutorService executorService = Executors.newCachedThreadPool();
@@ -31,11 +31,11 @@ public class Application {
             for (int i = 0; i < 3; i++) {
                 executorService.submit(lifeCycletask);
             }
-            scheduledExecutorService.scheduleAtFixedRate(new PlantSeeder(island),10,30, TimeUnit.SECONDS);
-            scheduledExecutorService.scheduleAtFixedRate(new StatisticManager(island),0,10, TimeUnit.SECONDS);
+            scheduledExecutorService.scheduleAtFixedRate(new PlantSeeder(island), 10, 30, TimeUnit.SECONDS);
+            scheduledExecutorService.scheduleAtFixedRate(new StatisticManager(island), 0, 10, TimeUnit.SECONDS);
 
             int executingSeconds = island.getConfig().getLifeCyclePeriod().getSecond();
-            executorService.awaitTermination(executingSeconds,TimeUnit.SECONDS);
+            executorService.awaitTermination(executingSeconds, TimeUnit.SECONDS);
 
             executorService.shutdownNow();
         } catch (InterruptedException e) {
@@ -43,7 +43,7 @@ public class Application {
         }
     }
 
-    private Island configureApp(){
+    private Island configureApp() {
         Configuration configuration = null;
         try {
             ObjectMapper mapper = new ObjectMapper();

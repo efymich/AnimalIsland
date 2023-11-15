@@ -1,6 +1,5 @@
 package services;
 
-import app.Configuration;
 import enums.Directions;
 import models.Entity;
 import models.Island;

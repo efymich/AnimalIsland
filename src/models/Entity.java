@@ -25,6 +25,5 @@ public abstract class Entity {
 
     public String toString() {
         return this.getKind().toString();
-//        return getClass().getSimpleName() + "(kind=" + this.getKind() + ", weight=" + this.getWeight() + ", countOnCell=" + this.getCountOnCell() + ", speed=" + this.getSpeed() + ", saturationLimit=" + this.getSaturationLimit() + ")";
     }
 }

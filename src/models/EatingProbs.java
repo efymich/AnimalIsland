@@ -8,10 +8,11 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Map;
+
 @Getter
 @NoArgsConstructor
 @ToString
 public class EatingProbs implements Serializable {
     @JsonProperty
-    private Map<Entities, Map<Entities,Double>> eatingProbsMap;
+    private Map<Entities, Map<Entities, Double>> eatingProbsMap;
 }

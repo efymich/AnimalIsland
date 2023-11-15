@@ -68,7 +68,7 @@ public final class Island {
         RandomEnumGenerator<Entities> randomEnumGenerator = new RandomEnumGenerator<>(Entities.class);
         Entities[] entities = Entities.values();
         islandCellStream.forEach(list -> {
-            for (Entities entity: entities) {
+            for (Entities entity : entities) {
                 Entities kind = randomEnumGenerator.randomEnum();
                 int limit = kind.getRandomCountOnCell();
                 for (int i = 0; i < limit; i++) {

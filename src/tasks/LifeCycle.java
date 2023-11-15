@@ -7,8 +7,8 @@ import services.EatProcess;
 import services.MoveProcess;
 import util.Utility;
 
-import java.util.*;
-import java.util.concurrent.*;
+import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 

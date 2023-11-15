@@ -1,13 +1,13 @@
 package factories;
 
-import models.Entity;
 import enums.Entities;
+import models.Entity;
 import models.Plant;
 
-public class PlantFactory implements EntityFactory{
+public class PlantFactory implements EntityFactory {
     @Override
     public Entity createEntity(Entities kind) {
-        return switch (kind){
+        return switch (kind) {
             case PLANT -> new Plant(Entities.PLANT);
             default -> null;
         };

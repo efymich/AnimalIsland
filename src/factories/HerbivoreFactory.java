@@ -1,10 +1,10 @@
 package factories;
 
-import models.Entity;
 import enums.Entities;
+import models.Entity;
 import models.Herbivore;
 
-public class HerbivoreFactory implements EntityFactory{
+public class HerbivoreFactory implements EntityFactory {
     @Override
     public Entity createEntity(Entities kind) {
         return switch (kind) {
