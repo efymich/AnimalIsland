@@ -1,8 +1,8 @@
-package tasks;
+package task;
 
-import models.Entity;
-import models.Island;
-import util.Utility;
+import model.Entity;
+import model.Island;
+import utilize.Utility;
 
 import java.util.TreeMap;
 import java.util.stream.Collectors;

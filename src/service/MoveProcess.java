@@ -1,9 +1,9 @@
-package services;
+package service;
 
 import enums.Directions;
-import models.Entity;
-import models.Island;
-import util.RandomEnumGenerator;
+import model.Entity;
+import model.Island;
+import utilize.RandomEnumGenerator;
 
 import java.util.List;
 import java.util.Map;
@@ -46,6 +46,7 @@ public class MoveProcess {
         return instance;
     }
 
+    //TODO: заменить приватные методы зависимостями
     private boolean isEnoughAnimals(List<Entity> list, Entity entity) {
         int countOnCell = entity.getCountOnCell();
         return list.stream()

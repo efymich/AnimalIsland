@@ -1,11 +1,11 @@
-package tasks;
+package task;
 
 import enums.Entities;
-import models.Entity;
-import models.Island;
-import services.EatProcess;
-import services.MoveProcess;
-import util.Utility;
+import model.Entity;
+import model.Island;
+import service.EatProcess;
+import service.MoveProcess;
+import utilize.Utility;
 
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -16,6 +16,7 @@ public class LifeCycle implements Runnable {
     private final Island island;
     private final EatProcess eatProcess = EatProcess.getInstance();
     private final MoveProcess moveProcess = MoveProcess.getInstance();
+    public boolean isInterrupted = false;
 
     public LifeCycle(Island island) {
         this.island = island;
@@ -23,7 +24,7 @@ public class LifeCycle implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (!isInterrupted) {
             eating(island);
             reproducing(island);
             moving(island);

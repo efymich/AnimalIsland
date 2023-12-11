@@ -1,12 +1,9 @@
-package util;
+package utilize;
 
 import enums.Entities;
-import enums.EntityKinds;
-import factories.HerbivoreFactory;
-import factories.PlantFactory;
-import factories.PredatorFactory;
-import models.Entity;
-import models.Island;
+import factory.NatureFactory;
+import model.Entity;
+import model.Island;
 
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -30,16 +27,7 @@ public class Utility {
     }
 
     public static void createEntityAndAdd(CopyOnWriteArrayList<Entity> list, Entities kind) {
-        PredatorFactory predatorFactory = new PredatorFactory();
-        HerbivoreFactory herbivoreFactory = new HerbivoreFactory();
-        PlantFactory plantFactory = new PlantFactory();
-
-        if (kind.getEntityKinds() == EntityKinds.PREDATOR) {
-            list.add(predatorFactory.createEntity(kind));
-        } else if (kind.getEntityKinds() == EntityKinds.HERBIVORE) {
-            list.add(herbivoreFactory.createEntity(kind));
-        } else {
-            list.add(plantFactory.createEntity(kind));
-        }
+        NatureFactory natureFactory = new NatureFactory();
+        list.add(natureFactory.createEntity(kind));
     }
 }

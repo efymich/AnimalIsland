@@ -1,10 +1,9 @@
-package tasks;
+package task;
 
 import enums.Entities;
-import factories.EntityFactory;
-import factories.PlantFactory;
-import models.Entity;
-import models.Island;
+import model.Entity;
+import model.Island;
+import utilize.Utility;
 
 import java.util.Map;
 import java.util.Random;
@@ -25,7 +24,6 @@ public class PlantSeeder implements Runnable {
 
     private void seedPlants(Island island) {
         Map<Integer, Map<Integer, CopyOnWriteArrayList<Entity>>> islandMap = island.getIslandMap();
-        EntityFactory plantFactory = new PlantFactory();
 
         islandMap.values()
                 .stream()
@@ -33,7 +31,7 @@ public class PlantSeeder implements Runnable {
                 .forEach(list -> {
                     int limit = new Random().nextInt(0, Entities.PLANT.getCountOnCell());
                     for (int i = 0; i < limit; i++) {
-                        list.add(plantFactory.createEntity(Entities.PLANT));
+                        Utility.createEntityAndAdd(list,Entities.PLANT);
                     }
                 });
     }

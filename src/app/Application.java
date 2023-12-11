@@ -1,10 +1,10 @@
 package app;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import models.Island;
-import tasks.LifeCycle;
-import tasks.PlantSeeder;
-import tasks.StatisticManager;
+import model.Island;
+import task.LifeCycle;
+import task.PlantSeeder;
+import task.StatisticManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,9 +33,10 @@ public class Application {
             }
             scheduledExecutorService.scheduleAtFixedRate(new PlantSeeder(island), 10, 30, TimeUnit.SECONDS);
             scheduledExecutorService.scheduleAtFixedRate(new StatisticManager(island), 0, 10, TimeUnit.SECONDS);
-
             int executingSeconds = island.getConfig().getLifeCyclePeriod().getSecond();
-            executorService.awaitTermination(executingSeconds, TimeUnit.SECONDS);
+
+            TimeUnit.SECONDS.sleep(executingSeconds);
+            lifeCycletask.isInterrupted = true;
 
             executorService.shutdownNow();
         } catch (InterruptedException e) {

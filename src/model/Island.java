@@ -1,17 +1,17 @@
-package models;
+package model;
 
 import app.Configuration;
 import enums.Entities;
 import lombok.Getter;
-import util.RandomEnumGenerator;
-import util.Utility;
+import utilize.RandomEnumGenerator;
+import utilize.Utility;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Stream;
 
-import static util.Utility.getIslandCellStream;
+import static utilize.Utility.getIslandCellStream;
 
 @Getter
 public final class Island {

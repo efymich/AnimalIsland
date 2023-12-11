@@ -1,4 +1,4 @@
-package util;
+package utilize;
 
 import java.util.SplittableRandom;
 

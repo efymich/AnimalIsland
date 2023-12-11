@@ -1,7 +1,7 @@
-package factories;
+package factory;
 
 import enums.Entities;
-import models.Entity;
+import model.Entity;
 
 public interface EntityFactory {
     Entity createEntity(Entities kind);
