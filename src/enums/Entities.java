@@ -37,8 +37,4 @@ public enum Entities {
         this.speed = speed;
         this.saturationLimit = saturationLimit;
     }
-    //TODO: непонятно для чего рандом
-    public int getRandomCountOnCell() {
-        return random.nextInt(this.countOnCell);
-    }
 }

@@ -31,9 +31,9 @@ public class Application {
             }
             scheduledExecutorService.scheduleAtFixedRate(new PlantSeeder(island), 10, 30, TimeUnit.SECONDS);
             scheduledExecutorService.scheduleAtFixedRate(new StatisticManager(island), 0, 10, TimeUnit.SECONDS);
-            int executingSeconds = island.getConfig().getLifeCyclePeriod().getSecond();
+            int secondOfDay = island.getConfig().getLifeCyclePeriod().toSecondOfDay();
 
-            TimeUnit.SECONDS.sleep(executingSeconds);
+            TimeUnit.SECONDS.sleep(secondOfDay);
             lifeCycletask.isInterrupted = true;
 
             executorService.shutdownNow();

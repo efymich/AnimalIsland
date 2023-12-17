@@ -4,6 +4,7 @@ import app.IslandConfiguration;
 import enums.Entities;
 import lombok.Getter;
 import utilize.RandomEnumGenerator;
+import utilize.RandomGenerator;
 import utilize.Utility;
 
 import java.util.HashMap;
@@ -66,14 +67,12 @@ public final class Island {
     private void populateMap(Island island) {
         Stream<CopyOnWriteArrayList<Entity>> islandCellStream = getIslandCellStream(island);
         RandomEnumGenerator<Entities> randomEnumGenerator = new RandomEnumGenerator<>(Entities.class);
-        Entities[] entities = Entities.values();
+        RandomGenerator randomGenerator = new RandomGenerator();
         islandCellStream.forEach(list -> {
-            for (Entities entity : entities) {
-                Entities kind = randomEnumGenerator.randomEnum();
-                int limit = kind.getRandomCountOnCell();
-                for (int i = 0; i < limit; i++) {
-                    Utility.createEntityAndAdd(list, kind);
-                }
+            Entities kind = randomEnumGenerator.randomEnum();
+            int limit = randomGenerator.getRandomCountOnCell(kind.getCountOnCell());
+            for (int i = 0; i < limit; i++) {
+                Utility.createEntityAndAdd(list, kind);
             }
         });
         
