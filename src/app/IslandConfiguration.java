@@ -8,7 +8,7 @@ import java.time.LocalTime;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Data
-public class Configuration {
+public class IslandConfiguration {
 
     private int xSize;
     private int ySize;

@@ -1,6 +1,6 @@
 package model;
 
-import app.Configuration;
+import app.IslandConfiguration;
 import enums.Entities;
 import lombok.Getter;
 import utilize.RandomEnumGenerator;
@@ -18,15 +18,15 @@ public final class Island {
 
     private static Island instance;
 
-    private final Configuration config;
+    private final IslandConfiguration config;
 
     private Map<Integer, Map<Integer, CopyOnWriteArrayList<Entity>>> islandMap = new HashMap<>();
 
-    private Island(Configuration config) {
+    private Island(IslandConfiguration config) {
         this.config = config;
     }
 
-    public static Island getInstance(Configuration config) {
+    public static Island getInstance(IslandConfiguration config) {
         if (instance == null) {
             synchronized (Island.class) {
                 if (instance == null) {
@@ -48,7 +48,7 @@ public final class Island {
         populateMap(this);
     }
 
-    private Map<Integer, Map<Integer, CopyOnWriteArrayList<Entity>>> generateMap(Configuration config) {
+    private Map<Integer, Map<Integer, CopyOnWriteArrayList<Entity>>> generateMap(IslandConfiguration config) {
         int x = config.getXSize();
         int y = config.getYSize();
 

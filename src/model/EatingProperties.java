@@ -7,6 +7,6 @@ import lombok.Data;
 import java.util.Map;
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Data
-public class EatingProbs {
+public class EatingProperties {
     private Map<Entities, Map<Entities, Double>> eatingProbsMap;
 }
