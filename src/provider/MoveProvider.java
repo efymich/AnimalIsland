@@ -9,9 +9,8 @@ import service.MoveProcess;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-@FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class MoveProvider {
-
     MoveProcess moveProcess;
 
     public MoveProvider(MoveProcess moveProcess) {
