@@ -65,22 +65,15 @@ public final class Island {
     }
 
     private void populateMap(Island island) {
+
         Stream<CopyOnWriteArrayList<Entity>> islandCellStream = getIslandCellStream(island);
         RandomEnumGenerator<Entities> randomEnumGenerator = new RandomEnumGenerator<>(Entities.class);
         RandomGenerator randomGenerator = new RandomGenerator();
-        islandCellStream.forEach(list -> {
-            Entities kind = randomEnumGenerator.randomEnum();
-            int limit = randomGenerator.getRandomCountOnCell(kind.getCountOnCell());
-            for (int i = 0; i < limit; i++) {
-                Utility.createEntityAndAdd(list, kind);
-            }
-        });
-        
-        /* islandCellStream.forEach(list -> {
+         islandCellStream.forEach(list -> {
             int limitCountOfEntitiesOnCell = island.getConfig().getLimitCountOfEntitiesOnCell();
             while (limitCountOfEntitiesOnCell != 0) {
                 Entities kind = randomEnumGenerator.randomEnum();
-                int limit = kind.getRandomCountOnCell();
+                int limit = randomGenerator.getRandomCountOnCell(kind.getCountOnCell());
 
                 if (limit <= limitCountOfEntitiesOnCell) {
                     for (int i = 0; i < limit; i++) {
@@ -90,6 +83,5 @@ public final class Island {
                 }
             }
         });
-        */
     }
 }
